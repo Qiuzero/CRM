@@ -1,11 +1,13 @@
 axios.defaults.baseURL = 'http://localhost:8888'; //配置请求的基本路径
+//携带cookie
+axios.defaults.withCredentials=true;
 
 //数据已表单的形式提交
-axios.defaults.headers['Content-type'] = 'application/x-www-form-urlencoded';
+axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
 axios.defaults.transformRequest = function (data) {
     if (!data) return data;
-    let result = '';
+    let result = ``;
     for (let attr in data) {
         if (!data.hasOwnProperty(attr)) break;
         result += `&${attr}=${data[attr]}`;
