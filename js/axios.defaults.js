@@ -1,4 +1,4 @@
-axios.defaults.baseURL = 'http://localhost:8888'; //配置请求的基本路径
+axios.defaults.baseURL = 'http://127.0.0.1:8888'; //配置请求的基本路径
 //携带cookie
 axios.defaults.withCredentials=true;
 
