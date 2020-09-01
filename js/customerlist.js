@@ -99,7 +99,7 @@ $(function () {
         })
     }
 
-    //编辑删除修改
+    //编辑删除
     delegate();
 
     function delegate() {
