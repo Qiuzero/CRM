@@ -1,7 +1,7 @@
 $(function () {
     showDepartMent();
     async function showDepartMent() {
-        let result = await queryDepart();
+        let result = await axios.get("/department/list");
         if (result.code !== 0) return;
         let str = ``;
         result.data.forEach(item => {
@@ -17,7 +17,6 @@ $(function () {
                 <td class="w20">
                     <a href="javascript:;">编辑</a>
                     <a href="javascript:;">删除</a>
-                    <a href="javascript:;">重置密码</a>
                 </td>
             </tr>`
         })
