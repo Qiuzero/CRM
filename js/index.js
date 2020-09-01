@@ -42,7 +42,7 @@ $(function () {
             str +=`
             <div class='itemBox' text='部门管理'>
                 <h3>
-                <i class ='iconfont icon-yuangong'></i>
+                <i class ='iconfont icon-bumen'></i>
                 部门管理
                 </h3>
                 <nav class='item'>
@@ -56,7 +56,7 @@ $(function () {
             str +=`
             <div class='itemBox' text='职位管理'>
                 <h3>
-                <i class ='iconfont icon-yuangong'></i>
+                <i class ='iconfont icon-zhiwei'></i>
                 职位管理
                 </h3>
                 <nav class='item'>
@@ -70,12 +70,12 @@ $(function () {
             str +=`
             <div class='itemBox' text='客户管理'>
                 <h3>
-                <i class ='iconfont icon-yuangong'></i>
+                <i class ='iconfont icon-kuhuguanli'></i>
                 客户管理
                 </h3>
                 <nav class='item'>
-                  <a href='page/customerlist.html' target='iframeBox'>我的客户</a>
-                  <a href='page/customerlist.html' target='iframeBox'>全部客户</a>
+                  <a href='page/customerlist.html?lx=my' target='iframeBox'>我的客户</a>
+                  <a href='page/customerlist.html?lx=all' target='iframeBox'>全部客户</a>
                   <a href='page/customeradd.html' target='iframeBox'>新增客户</a>
                 </nav>
             </div>
