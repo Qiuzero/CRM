@@ -1,4 +1,37 @@
 $(function () {
+    let userId = null;
+    //console.log(window,location.href);
+    let params = window.location.href.queryURLParams();
+    console.log(params);
+    //点击编辑进到此页面有id, 点击添加进到此页面没有id
+    if (params.hasOwnProperty("id")) {
+        userId = params.id;
+        getBaseInfo();
+    }
+    async function getBaseInfo() {
+        let result = await axios.get("/user/info", {
+            params: {
+                userId
+            }
+        })
+        if (result.code === 0) {
+            result = result.data;
+            //实现数据的回显
+            $(".username").val(result.name);
+            result.sex == 0 ? $("#man").prop("checked", true) : $("#women").prop("checked", true); //0代表男  1代表女
+            $(".useremail").val(result.email);
+            $(".userphone").val(result.phone);
+            $(".userdepartment").val(result.departmentId);
+            $(".userjob").val(result.jobId);
+            $(".userdesc").val(result.desc);
+            return;
+
+        }
+        alert("稍后再试")
+        userId=null;
+    }
+
+
     initDepAndJob();
     async function initDepAndJob() {
         let departmentData = await queryDepart();
@@ -85,6 +118,21 @@ $(function () {
             desc: $(".userdesc").val().trim(),
         }
         //console.log(params)
+
+        //判断是编辑还是新增
+        if(userId){
+            //实现编辑功能
+            params.userId=userId;
+            let result=await axios.post("/user/update",params)
+            if(result.code===0){
+                alert("编辑成功")
+                window.location.href='userlist.html'
+                return;
+            }
+            alert("编辑失败，稍后再试")
+            return;
+        }
+
         //实现新增功能
         let result = await axios.post("/user/add", params)
         if (result.code === 0) {
