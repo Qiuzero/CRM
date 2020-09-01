@@ -25,7 +25,6 @@ $(function () {
             $(".userjob").val(result.jobId);
             $(".userdesc").val(result.desc);
             return;
-
         }
         alert("稍后再试")
         userId=null;
@@ -132,7 +131,6 @@ $(function () {
             alert("编辑失败，稍后再试")
             return;
         }
-
         //实现新增功能
         let result = await axios.post("/user/add", params)
         if (result.code === 0) {

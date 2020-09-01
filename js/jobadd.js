@@ -1,34 +1,34 @@
 $(function () {
-    let departmentId = null;
-    console.log(window,location.href);
+    let jobId = null;
+    console.log(window, location.href);
     let params = window.location.href.queryURLParams();
     console.log(params);
     //点击编辑进到此页面有id, 点击添加进到此页面没有id
     if (params.hasOwnProperty("id")) {
-        departmentId = params.id;
+        jobId = params.id;
         getBaseInfo();
-    }    
+    }
     async function getBaseInfo() {
-        let result = await axios.get("/department/info", {
+        let result = await axios.get("/job/info", {
             params: {
-                departmentId
+                jobId
             }
         })
         if (result.code === 0) {
             result = result.data;
             //实现数据的回显
-            $(".departmentname").val(result.name);
-            $(".departmentdesc").val(result.desc);
+            $(".jobname").val(result.name);
+            $(".jobdesc").val(result.desc);
             return;
 
         }
         alert("稍后再试")
-        departmentId = null;
+        jobId = null;
     }
     //数据校验
     //用户名验证
     function checkname() {
-        let val = $(".departmentname").val().trim();
+        let val = $(".jobname").val().trim();
         if (val.length === 0) {
             $(".spanname").html('必填项')
             return false;
@@ -40,27 +40,41 @@ $(function () {
         $(".spanname").html('')
         return true
     }
-    $(".departmentname").blur(checkname)
+    $(".jobname").blur(checkname)
+
+
+
+
     $(".submit").click(async function () {
-        if (!checkname()) {
-            alert('你填写的数据不合法')
-            return;
-        }
+        // if (!checkname()) {
+        //     alert('你填写的数据不合法')
+        //     return;
+        // }
         //校验通过获取用户输入的数据
+        //权限选择
+        let arr=[];
+        $.each($('input:checkbox'), async function () {
+            if (this.checked) {
+                let value = $(this).val()
+                //console.log(value);
+                arr.push(value);
+            }
+        })
         let params = {
-            name: $('.departmentname').val().trim(),
-            desc: $(".departmentdesc").val().trim(),
+            name: $('.jobname').val().trim(),
+            desc: $(".jobdesc").val().trim(),
+            power:arr
         }
-        //console.log(params)
+        console.log(params)
 
         //判断是编辑还是新增
-        if (departmentId) {
+        if (jobId) {
             //实现编辑功能
-            params.departmentId = departmentId;
-            let result = await axios.post("/department/update", params)
+            params.jobId = jobId;
+            let result = await axios.post("/job/update", params)
             if (result.code === 0) {
                 alert("编辑成功")
-                window.location.href = 'departmentlist.html'
+                window.location.href = 'joblist.html'
                 return;
             }
             alert("编辑失败，稍后再试")
@@ -68,10 +82,10 @@ $(function () {
         }
 
         //实现新增功能
-        let result = await axios.post("/department/add", params)
+        let result = await axios.post("/job/add", params)
         if (result.code === 0) {
             // alert("添加成功");
-            window.location.href = "departmentlist.html";
+            window.location.href = "../page/joblist.html";
             return
         }
         alert("添加失败~稍后再试")
